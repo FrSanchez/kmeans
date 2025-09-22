@@ -1,0 +1,41 @@
+# Build directories
+/build/
+/CMakeFiles/
+/CMakeCache.txt
+/Makefile
+/cmake_install.cmake
+/compile_commands.json
+
+# macOS system files
+.DS_Store
+
+# Editor files
+*.swp
+*~
+*.sublime-project
+*.sublime-workspace
+.idea/
+.vscode/
+
+# Executable and object files
+*.exe
+*.out
+*.app
+*.o
+*.obj
+*.a
+*.so
+*.dll
+*.dylib
+
+# Logs and core dumps
+*.log
+core
+
+# Test coverage
+*.gcda
+*.gcno
+*.gcov
+
+# Other
+*.pyc
