@@ -1,0 +1,12 @@
+[submodule "external/xtensor"]
+	path = external/xtensor
+	url = https://github.com/xtensor-stack/xtensor.git
+[submodule "external/xtensor-io"]
+	path = external/xtensor-io
+	url = https://github.com/xtensor-stack/xtensor-io.git
+[submodule "external/xtl"]
+	path = external/xtl
+	url = https://github.com/xtensor-stack/xtl.git
+[submodule "external/ghc-filesystem"]
+	path = external/ghc-filesystem
+	url = https://github.com/gulrak/filesystem.git

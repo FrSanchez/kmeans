@@ -1,7 +1,10 @@
 #include <iostream>
 #include <string>
-#include "NpyLoader.h"
+#include <xtensor/containers/xarray.hpp>
+#include <xtensor/io/xnpy.hpp>
+#include <xtensor/io/xio.hpp>
 #include "KMeans.h"
+
 
 int main(int argc, char* argv[]) {
     int k = 5;
@@ -27,34 +30,44 @@ int main(int argc, char* argv[]) {
     }
 
     // Load the numpy matrix
-    auto mat = NpyLoader::loadFloatMatrix(input_file);
-    if (mat.empty() || mat[0].empty()) {
-        std::cerr << "Error: Matrix is empty or not loaded properly.\n";
-        return 1;
-    }
+    // auto mat = NpyLoader::loadFloatMatrix(input_file);
+    auto mat = xt::load_npy<double>(input_file);
+    std::cout << "Loaded matrix with shape: ";
+    for (auto s : mat.shape()) std::cout << s << " ";
+    std::cout << std::endl;
+
+    // Print the matrix (xtensor supports fancy printing!)
+    std::cout << mat << std::endl;
     if (k > mat.size()) {
         std::cerr << "Error: Number of clusters (k) cannot exceed number of data points.\n";
         return 1;
     }
-    std::cout << "Loaded " << mat.size() << " rows with " << mat[0].size() << " columns.\n";
+    // std::cout << "Loaded " << mat.size() << " rows with " << mat.size() << " columns.\n";
 
-    // Select initial centroids
+    // // Select initial centroids
     auto centroids = KMeans::select_initial_centroids(seed, k, mat);
-    std::cout << "Initial centroids selected with seed " << seed << ":\n";
-    std::cout << "Selected " << centroids.size() << " initial centroids:\n";
-    for (const auto& centroid : centroids) {
-        for (float val : centroid) {
-            std::cout << val << " ";
-        }
-        std::cout << "\n";
-    }
+    // std::cout << "Initial centroids selected with seed " << seed << ":\n";
+    // std::cout << "Selected " << centroids.size() << " initial centroids:\n";
+    // for (const auto& centroid : centroids) {
+    //     for (float val : centroid) {
+    //         std::cout << val << " ";
+    //     }
+    //     std::cout << "\n";
+    // }
 
-    KMeans::Matrix final_centroids;
-    std::vector<int> final_labels;
-    float loss = 0.0f;
-    KMeans::kmeans(mat, centroids, 1000, 1e-8f, final_centroids, final_labels, loss);
+    // KMeans::Matrix final_centroids;
+    // std::vector<int> final_labels;
+    // float loss = 0.0f;
+    // KMeans::kmeans(mat, centroids, 1000, 1e-8f, final_centroids, final_labels, loss);
 
-    std::cout << "Final loss: " << loss << "\n";
+    // std::cout << "Final loss: " << loss << "\n";
+    // std::cout << "Final centroids:\n";
+    // for (const auto& centroid : final_centroids) {
+    //     for (float val : centroid) {
+    //         std::cout << val << " ";
+    //     }
+    //     std::cout << "\n";
+    // }
 
     return 0;
 }
